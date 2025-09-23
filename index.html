@@ -12,6 +12,7 @@
       overflow-x: hidden;
     }
 
+    /* HERO */
     .hero {
       display: flex;
       flex-direction: column;
@@ -45,12 +46,69 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* CUBE SECTION */
+    .cube-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #111;
+    }
+
+    .cube {
+      position: relative;
+      width: 200px;
+      transform-style: preserve-3d;
+      animation: spin 10s infinite linear;
+    }
+
+    .cube div {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .cube .front  { transform: rotateY(0deg) translateZ(100px); }
+    .cube .back   { transform: rotateY(180deg) translateZ(100px); }
+    .cube .right  { transform: rotateY(90deg) translateZ(100px); }
+    .cube .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .cube .top    { transform: rotateX(90deg) translateZ(100px); }
+    .cube .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    @keyframes spin {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to   { transform: rotateX(360deg) rotateY(360deg); }
+    }
   </style>
 </head>
 <body>
+  <!-- HERO -->
   <section class="hero">
     <h1>🚀 Marketing by Guyz</h1>
     <p>Amazon • TikTok Shop • Walmart • Digital Growth</p>
   </section>
+
+  <!-- 3D CUBE -->
+  <section class="cube-section">
+    <div class="cube">
+      <div class="front">Amazon</div>
+      <div class="back">TikTok</div>
+      <div class="right">Walmart</div>
+      <div class="left">Meta Ads</div>
+      <div class="top">Google Ads</div>
+      <div class="bottom">Branding</div>
+    </div>
+  </section>
 </body>
 </html>
+
