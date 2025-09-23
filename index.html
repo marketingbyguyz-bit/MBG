@@ -10,105 +10,103 @@
       background: linear-gradient(135deg, #0d0d0d, #1a1a40);
       color: white;
       overflow-x: hidden;
-    }
-
-    /* HERO */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 4rem;
-      background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s infinite alternate;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 20px;
-      color: #cccccc;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff00ff; }
-      to { text-shadow: 0 0 30px #00ffff; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* CUBE SECTION */
-    .cube-section {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: #111;
+    }
+
+    /* Cube Container */
+    .scene {
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
     }
 
     .cube {
+      width: 100%;
+      height: 100%;
       position: relative;
-      width: 200px;
       transform-style: preserve-3d;
-      animation: spin 10s infinite linear;
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: transform 1s cubic-bezier(0.4, 0.2, 0.2, 1);
     }
 
-    .cube div {
+    .cube-face {
       position: absolute;
       width: 200px;
       height: 200px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #0ff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1.2rem;
       font-weight: bold;
-      color: #fff;
-      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+      border-radius: 10px;
     }
 
-    .cube .front  { transform: rotateY(0deg) translateZ(100px); }
-    .cube .back   { transform: rotateY(180deg) translateZ(100px); }
-    .cube .right  { transform: rotateY(90deg) translateZ(100px); }
-    .cube .left   { transform: rotateY(-90deg) translateZ(100px); }
-    .cube .top    { transform: rotateX(90deg) translateZ(100px); }
-    .cube .bottom { transform: rotateX(-90deg) translateZ(100px); }
+    /* Faces */
+    .front  { transform: rotateY(0deg) translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
 
-    @keyframes spin {
-      from { transform: rotateX(0deg) rotateY(0deg); }
-      to   { transform: rotateX(360deg) rotateY(360deg); }
+    /* Premium Glow */
+    .cube-face:hover {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
     }
   </style>
 </head>
 <body>
-  <!-- HERO -->
-  <section class="hero">
-    <h1>🚀 Marketing by Guyz</h1>
-    <p>Amazon • TikTok Shop • Walmart • Digital Growth</p>
-  </section>
-
-  <!-- 3D CUBE -->
-  <section class="cube-section">
-    <div class="cube">
-      <div class="front">Amazon</div>
-      <div class="back">TikTok</div>
-      <div class="right">Walmart</div>
-      <div class="left">Meta Ads</div>
-      <div class="top">Google Ads</div>
-      <div class="bottom">Branding</div>
+  <div class="scene">
+    <div class="cube" id="cube">
+      <div class="cube-face front">MBG</div>
+      <div class="cube-face back">Amazon</div>
+      <div class="cube-face right">TikTok</div>
+      <div class="cube-face left">Walmart</div>
+      <div class="cube-face top">Digital</div>
+      <div class="cube-face bottom">Case Studies</div>
     </div>
-  </section>
+  </div>
+
+  <script>
+    let cube = document.getElementById("cube");
+    let rotateX = 0;
+    let rotateY = 0;
+    let direction = 1; // 1 = clockwise, -1 = counter
+
+    // Smooth auto rotation (slow)
+    let autoRotate = setInterval(() => {
+      rotateY += 1 * direction; // slow speed
+      cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }, 100);
+
+    // Scroll to change direction
+    window.addEventListener("wheel", (e) => {
+      // Stop auto-rotation while interacting
+      clearInterval(autoRotate);
+
+      // Change cube direction on scroll
+      direction = direction * -1;
+
+      // Small immediate rotate for feedback
+      rotateY += 45 * direction;
+      cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      // Restart auto rotation after delay
+      setTimeout(() => {
+        autoRotate = setInterval(() => {
+          rotateY += 1 * direction;
+          cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }, 100);
+      }, 2000); // wait 2s before resuming
+    });
+  </script>
 </body>
 </html>
-
