@@ -2,111 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketing by Guyz</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #0d0d0d, #1a1a40);
-      color: white;
-      overflow-x: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Cube Container */
-    .scene {
-      width: 200px;
-      height: 200px;
-      perspective: 1000px;
-    }
-
-    .cube {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transform: rotateX(0deg) rotateY(0deg);
-      transition: transform 1s cubic-bezier(0.4, 0.2, 0.2, 1);
-    }
-
-    .cube-face {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      backdrop-filter: blur(8px);
-      border-radius: 10px;
-    }
-
-    /* Faces */
-    .front  { transform: rotateY(0deg) translateZ(100px); }
-    .back   { transform: rotateY(180deg) translateZ(100px); }
-    .right  { transform: rotateY(90deg) translateZ(100px); }
-    .left   { transform: rotateY(-90deg) translateZ(100px); }
-    .top    { transform: rotateX(90deg) translateZ(100px); }
-    .bottom { transform: rotateX(-90deg) translateZ(100px); }
-
-    /* Premium Glow */
-    .cube-face:hover {
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
-    }
-  </style>
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="scene">
-    <div class="cube" id="cube">
-      <div class="cube-face front">MBG</div>
-      <div class="cube-face back">Amazon</div>
-      <div class="cube-face right">TikTok</div>
-      <div class="cube-face left">Walmart</div>
-      <div class="cube-face top">Digital</div>
-      <div class="cube-face bottom">Case Studies</div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo">MBG</div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#case-studies">Case Studies</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section with Cube -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Launch. Scale. Dominate.</h1>
+      <p>We provide world-class services for Amazon, TikTok, Walmart, and Digital Marketing.</p>
+      <a href="#services" class="btn">Explore Services</a>
     </div>
-  </div>
+    <div class="cube-container">
+      <div class="cube" id="cube">
+        <div class="face front">MBG</div>
+        <div class="face back">Amazon</div>
+        <div class="face right">TikTok</div>
+        <div class="face left">Walmart</div>
+        <div class="face top">Marketing</div>
+        <div class="face bottom">Growth</div>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    let cube = document.getElementById("cube");
-    let rotateX = 0;
-    let rotateY = 0;
-    let direction = 1; // 1 = clockwise, -1 = counter
+  <!-- Services -->
+  <section id="services" class="section">
+    <h2>Our Services</h2>
+    <div class="grid">
+      <div class="card">Amazon A–Z Management</div>
+      <div class="card">TikTok Shop & Influencer Marketing</div>
+      <div class="card">Walmart Store Growth</div>
+      <div class="card">PPC & Paid Ads</div>
+      <div class="card">Video Editing & Content Creation</div>
+    </div>
+  </section>
 
-    // Smooth auto rotation (slow)
-    let autoRotate = setInterval(() => {
-      rotateY += 1 * direction; // slow speed
-      cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }, 100);
+  <!-- Case Studies -->
+  <section id="case-studies" class="section dark">
+    <h2>Case Studies</h2>
+    <p>Real numbers, real growth. Coming soon...</p>
+  </section>
 
-    // Scroll to change direction
-    window.addEventListener("wheel", (e) => {
-      // Stop auto-rotation while interacting
-      clearInterval(autoRotate);
+  <!-- About -->
+  <section id="about" class="section">
+    <h2>About Us</h2>
+    <p>Marketing by Guyz helps brands launch and grow on Amazon, TikTok, and beyond with data-driven strategies.</p>
+  </section>
 
-      // Change cube direction on scroll
-      direction = direction * -1;
+  <!-- Contact -->
+  <section id="contact" class="section dark">
+    <h2>Contact Us</h2>
+    <p>Email: contact@marketingbyguyz.com</p>
+    <p>Phone: +92-XXX-XXXXXXX</p>
+    <div class="socials">
+      <a href="#">LinkedIn</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+    </div>
+  </section>
 
-      // Small immediate rotate for feedback
-      rotateY += 45 * direction;
-      cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  <footer>© 2025 Marketing by Guyz. All rights reserved.</footer>
 
-      // Restart auto rotation after delay
-      setTimeout(() => {
-        autoRotate = setInterval(() => {
-          rotateY += 1 * direction;
-          cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        }, 100);
-      }, 2000); // wait 2s before resuming
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
